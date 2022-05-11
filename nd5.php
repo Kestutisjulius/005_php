@@ -140,7 +140,7 @@ foreach(range(1, 200) as $vr){
     }
  }
 
- /* Sugeneruokite du masyvus, kurių reikšmės yra atsitiktiniai skaičiai nuo 100 iki 999.
+ /*6. Sugeneruokite du masyvus, kurių reikšmės yra atsitiktiniai skaičiai nuo 100 iki 999.
    Masyvų ilgiai 100. Masyvų reikšmės turi būti unikalios savo masyve (t.y. neturi kartotis).
 */
 $q = [];
@@ -153,24 +153,28 @@ foreach(range(1,100) as $uniq){
 }
 $q = array_unique($q);
 while(sizeof($q)<100){
-    $q[]=rand(100,999);
+    $rd = rand(100,999);
+    array_unshift($q, $rd);
+  //  $q[]=rand(100,999);
     $q = array_unique($q);
 }
 echo '<br>';
-
+$copyQ = $q;
 foreach(range(1,100) as $uniq2){
     $q2[]=rand(100,999);
 }
 $q2 = array_unique($q2);
 while(sizeof($q2)<100){
-    $q2[]=rand(100,999);
+    $rd = rand(100,999);
+    array_unshift($q2, $rd);
+   // $q2[]=rand(100,999);
     $q2 = array_unique($q2);
 }
 
-
+$q7=$q2;
 
 /* 
-    Sugeneruokite masyvą, kuris būtų sudarytas iš reikšmių, kurios yra pirmame 6 uždavinio masyve, bet nėra antrame 6 uždavinio masyve.
+   7 Sugeneruokite masyvą, kuris būtų sudarytas iš reikšmių, kurios yra pirmame 6 uždavinio masyve, bet nėra antrame 6 uždavinio masyve.
 
 */
 foreach($q as $rkt => $m){
@@ -178,14 +182,52 @@ foreach($q as $rkt => $m){
     if(in_array($m, $q2)){
         unset($q[$rkt]);
     } 
-    $q3[] = $m; 
+    
 }
+$q3 = $q; 
 foreach($q3 as $r3){
 
     if(in_array($r3, $q2)){
         echo 'RADAU';
     }
 }
-sort($q3);
-echo sizeof($q3);
-print_r ($q3);
+/* 
+8Sugeneruokite masyvą iš elementų, kurie kartojasi abiejuose 6 uždavinio masyvuose.
+*/
+$q8 = [];
+foreach($q as $r8 => $v8){
+    if(in_array($v8, $q7)){
+       
+        echo 'RDAU';
+    }
+}
+/* 
+9. Sugeneruokite masyvą, kurio indeksus sudarytų pirmo 6 uždavinio masyvo reikšmės, o jo reikšmės iš būtų antrojo masyvo.
+*/
+$q9 = [];
+for ($j=0; $j<100; $j++){
+    $q9["$copyQ[$j]"]= $j;
+  // echo '<br>';
+}
+
+/* 
+10. Sugeneruokite 10 skaičių masyvą pagal taisyklę: Du pirmi skaičiai- atsitiktiniai nuo 5 iki 25. 
+Trečias, pirmo ir antro suma. Ketvirtas- antro ir trečio suma. Penktas trečio ir ketvirto suma ir t.t.
+
+*/
+$i=rand(5,25);
+$ii=rand(5,25);
+$arrX = [$i, $ii];
+
+for($t=0; $t<=8; $t++){
+    $arrX[] = $arrX[$t] + $arrX[$t+1];
+}
+/* 
+Sugeneruokite 101 elemento masyvą su atsitiktiniais skaičiais nuo 0 iki 300. 
+Reikšmes kurios tame masyve yra ne unikalios pergeneruokite iš naujo taip, kad visos reikšmės masyve būtų unikalios.
+Išrūšiuokite masyvą taip, kad jo didžiausia reikšmė būtų masyvo viduryje, o einant nuo jos link masyvo pradžios ir pabaigos reikšmės mažėtų.
+Paskaičiuokite pirmos ir antros masyvo dalies sumas (neskaičiuojant vidurinės). 
+Jeigu sumų skirtumas (modulis, absoliutus dydis) yra didesnis nei | 30 | rūšiavimą kartokite. 
+(Kad sumos nesiskirtų viena nuo kitos daugiau nei per 30)
+
+*/
