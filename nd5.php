@@ -5,6 +5,9 @@ Sugeneruokite masyvą iš 30 elementų (indeksai nuo 0 iki 29), kurių reikšmė
 */
 echo '<pre>';
 $ar = [];
+$arC = [];
+$lyg = [];
+$nelyg = [];
 foreach(range(1,30) as $element){
 $ar[$element]=rand(5,25);
 }
@@ -24,6 +27,7 @@ Naudodami funkciją unset() iš masyvo ištrinkite visus elementus turinčius po
 */
 $c0untVal = 0;
 $max = 0;
+$min = 30;
 $lyginiuKeyReiksmiuSuma = 0;
 foreach($ar as $key => $val){
     if($val > 10){
@@ -32,8 +36,15 @@ foreach($ar as $key => $val){
     if($max < $val){
         $max = $val;
     }
-
+    $arC[]=$val-$key;
+    if($val > 10){
+        if($min > $key){
+            $min = $key;
+        }
+    }
 }
+print_r ('maziausias key where value > 10:'."$min");
+echo '<br>';
 foreach($ar as $key2 => $val2){
     if ($max == $val2){
         print_r ("$key2 : $val2");
@@ -41,7 +52,140 @@ foreach($ar as $key2 => $val2){
     }
     if($key2 % 2 == 0){
         $lyginiuKeyReiksmiuSuma += $key2;
-    }
+        $lyg[]=$key2;
+     }else{
+         $nelyg[]=$key2;
+     }
+
 }
 echo '<br>';
 print_r ('lyginiuKeyReiksmiuSuma =' .$lyginiuKeyReiksmiuSuma);
+foreach(range(1,10) as $elementX){
+    $arC[]=rand(5,25);
+    }
+  
+ foreach($ar as $k => $v) {
+     if($k % 2 == 0 && $k > 15){
+         $ar[$k] = 0;
+     } 
+     
+ } 
+ foreach($ar as $k1 => $v1) {
+     if($k1 % 2 == 0){
+         unset($ar[$k1]);
+     } 
+ } 
+ /* 
+    Sugeneruokite masyvą, kurio reikšmės atsitiktinės raidės A, B, C ir D, o ilgis 200. 
+    Suskaičiuokite kiek yra kiekvienos raidės.
+
+ */
+$l = [];
+$countA = 0;
+$countB = 0;
+$countC = 0;
+$countD = 0;
+$letters = ['A', 'B', 'C', 'D'];
+ foreach(range(1, 200) as $var){
+    $l[]= $letters[rand(0,3)];
+ }
+foreach($l as $component){
+    if($component == 'A'){
+        $countA ++;
+    }
+    if($component == 'B'){
+        $countB ++;
+    }
+    if($component == 'C'){
+        $countC ++;
+    }
+    if($component == 'D'){
+        $countD ++;
+    }
+}
+/* Išrūšiuokite 3 uždavinio masyvą pagal abecėlę.*/
+sort($l);
+/* 
+    Sugeneruokite 3 masyvus pagal 3 uždavinio sąlygą. 
+    Sudėkite masyvus, sudėdami atitinkamas reikšmes. 
+    Paskaičiuokite kiek unikalių (po vieną, nesikartojančių) 
+    reikšmių ir kiek unikalių kombinacijų gavote.
+
+*/
+$l1 = [];
+$l2 = [];
+$l3 = [];
+$l4 = [];
+$kombinaciju = 0;
+foreach(range(1, 200) as $vr){
+    $l1[]= $letters[rand(0,3)];
+ }
+foreach(range(1, 200) as $vr){
+    $l2[]= $letters[rand(0,3)];
+ }
+foreach(range(1, 200) as $vr){
+    $l3[]= $letters[rand(0,3)];
+ }
+
+ foreach($l1 as $kx => $v1){
+     $l4[]= $l1[$kx].$l2[$kx].$l3[$kx];
+ }
+ sort($l4);
+ $stringas = '';
+ foreach($l4 as $raktai => $reiksme){
+
+    if($stringas != $reiksme){
+        $stringas = $reiksme;
+        $kombinaciju ++;
+    }
+ }
+
+ /* Sugeneruokite du masyvus, kurių reikšmės yra atsitiktiniai skaičiai nuo 100 iki 999.
+   Masyvų ilgiai 100. Masyvų reikšmės turi būti unikalios savo masyve (t.y. neturi kartotis).
+*/
+$q = [];
+$q2 = [];
+$q3 = [];
+$numQ = 100;
+$num = 0;
+foreach(range(1,100) as $uniq){
+    $q[]=rand(100,999);
+}
+$q = array_unique($q);
+while(sizeof($q)<100){
+    $q[]=rand(100,999);
+    $q = array_unique($q);
+}
+echo '<br>';
+
+foreach(range(1,100) as $uniq2){
+    $q2[]=rand(100,999);
+}
+$q2 = array_unique($q2);
+while(sizeof($q2)<100){
+    $q2[]=rand(100,999);
+    $q2 = array_unique($q2);
+}
+
+
+
+/* 
+    Sugeneruokite masyvą, kuris būtų sudarytas iš reikšmių, kurios yra pirmame 6 uždavinio masyve, bet nėra antrame 6 uždavinio masyve.
+
+*/
+foreach($q as $rkt => $m){
+
+    if(in_array($m, $q2)){
+        unset($q[$rkt]);
+    } 
+    $q3[] = $m; 
+}
+foreach($q3 as $r3){
+
+    if(in_array($r3, $q2)){
+        echo 'RADAU';
+    }
+}
+sort($q3);
+echo sizeof($q3);
+print_r ($q3);
